@@ -19,7 +19,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
     currentFolder = folder
-    let a = await fetch(`https://pranavbane.github.io/Spotify-Website/asset/songs/${folder}/`);
+    let a = await fetch(`./asset/songs/${folder}/`);
      // let a = await fetch(`./asset/songs/${folder}/`);
     let response = await a.text();
     let div = document.createElement("div");
@@ -84,7 +84,7 @@ const playMusic = (track, pause = false) => {
     // let audio = new Audio("asset/songs/" + track);
     // audio.play();
 
-    currentSong.src = `./asset/${currentFolder}/` + track
+    currentSong.src = `./asset/songs/${currentFolder}/` + track
     if (!pause) {
         currentSong.play();
         play.src = "./asset/svg/pause.svg"
@@ -110,7 +110,7 @@ async function displayAlbums() {
             let folder = e.href.split('/')[5];
             if (folder !== 'asset' && folder !== undefined) {
                 // get the metadata of the folder
-                let a = await fetch(`http://127.0.0.1:5500/asset/songs/${folder}/info.json`)
+                let a = await fetch(`./asset/songs/${folder}/info.json`)
                 let response = await a.json()
                 // console.log(response);
 
@@ -135,7 +135,7 @@ async function displayAlbums() {
     Array.from(document.getElementsByClassName("cards")).forEach(e => {
         e.addEventListener("click", async item => {
             console.log(e)
-            songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`)
+            songs = await getSongs(`${item.currentTarget.dataset.folder}`)
             playMusic(songs[0]);
         })
     })
